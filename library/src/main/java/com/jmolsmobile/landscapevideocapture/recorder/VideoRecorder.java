@@ -103,6 +103,7 @@ public class VideoRecorder implements OnInfoListener, CapturePreviewInterface {
             CLog.d(CLog.RECORDER, "Successfully stopped recording - outputfile: " + mVideoFile.getFullPath());
         } catch (final RuntimeException e) {
             CLog.d(CLog.RECORDER, "Failed to stop recording");
+
         }
 
         mRecording = false;
