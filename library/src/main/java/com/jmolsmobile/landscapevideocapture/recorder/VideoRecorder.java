@@ -44,7 +44,7 @@ public class VideoRecorder implements OnInfoListener, CapturePreviewInterface {
     private final VideoFile            mVideoFile;
 
     private MediaRecorder mRecorder;
-    private boolean mRecording = false;
+    private static boolean  mRecording = false;
     private final VideoRecorderInterface mRecorderInterface;
 
     public VideoRecorder(VideoRecorderInterface recorderInterface, CaptureConfiguration captureConfiguration, VideoFile videoFile,
@@ -190,7 +190,7 @@ public class VideoRecorder implements OnInfoListener, CapturePreviewInterface {
         }
     }
 
-    protected boolean isRecording() {
+    protected static boolean isRecording() {
         return mRecording;
     }
 

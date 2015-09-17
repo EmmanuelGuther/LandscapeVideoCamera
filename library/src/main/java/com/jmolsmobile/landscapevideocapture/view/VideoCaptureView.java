@@ -26,9 +26,11 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+import android.widget.TextView;
 
 import com.jmolsmobile.landscapevideocapture.R;
 import com.jmolsmobile.landscapevideocapture.R.id;
+import com.jmolsmobile.landscapevideocapture.recorder.TimerRecorder;
 
 public class VideoCaptureView extends FrameLayout implements OnClickListener {
 
@@ -37,9 +39,11 @@ public class VideoCaptureView extends FrameLayout implements OnClickListener {
 	private ImageView					mRecordBtnIv;
 	private SurfaceView					mSurfaceView;
 	private ImageView					mThumbnailIv;
+	private TextView                    mTVrecordTimer;
 
 	private RecordingButtonInterface	mRecordingInterface;
 
+    private Context                     _context;
 	public VideoCaptureView(Context context) {
 		super(context);
 		initialize(context);
@@ -61,13 +65,14 @@ public class VideoCaptureView extends FrameLayout implements OnClickListener {
 		mRecordBtnIv = (ImageView) videoCapture.findViewById(id.videocapture_recordbtn_iv);
 		mAcceptBtnIv = (ImageView) videoCapture.findViewById(id.videocapture_acceptbtn_iv);
 		mDeclineBtnIv = (ImageView) videoCapture.findViewById(id.videocapture_declinebtn_iv);
-
+        mTVrecordTimer = (TextView) videoCapture.findViewById(id.tv_record_timer);
 		mRecordBtnIv.setOnClickListener(this);
 		mAcceptBtnIv.setOnClickListener(this);
 		mDeclineBtnIv.setOnClickListener(this);
 
 		mThumbnailIv = (ImageView) videoCapture.findViewById(R.id.videocapture_preview_iv);
 		mSurfaceView = (SurfaceView) videoCapture.findViewById(R.id.videocapture_preview_sv);
+        _context = context;
 	}
 
 	public void setRecordingButtonInterface(RecordingButtonInterface mBtnInterface) {
@@ -115,6 +120,8 @@ public class VideoCaptureView extends FrameLayout implements OnClickListener {
 
 		if (v.getId() == mRecordBtnIv.getId()) {
 			mRecordingInterface.onRecordButtonClicked();
+            TimerRecorder timerR = new TimerRecorder();
+            timerR.timer(_context,mTVrecordTimer);
 		} else if (v.getId() == mAcceptBtnIv.getId()) {
 			mRecordingInterface.onAcceptButtonClicked();
 		} else if (v.getId() == mDeclineBtnIv.getId()) {
